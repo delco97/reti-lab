@@ -32,7 +32,7 @@ public class PiGrecoTask implements Runnable {
 
 
 	public static void main(String[] args) {
-		// MainClass accuracy mseconds
+		// CapitalizerServer accuracy mseconds
 		// accuray (double) accuracy da raggungere in decimale
 		// mseconds (int) tempo in millisecondi prima di scattare il timeout
 		double accuracy = 0.00000000001;
