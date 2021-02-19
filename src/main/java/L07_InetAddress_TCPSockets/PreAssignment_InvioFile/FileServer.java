@@ -25,7 +25,7 @@ public class FileServer {
 				System.out.println("Waiting request...");
 				try (Socket connection = server.accept()) {
 					System.out.println("Preparing file...");
-					FileInputStream file = new FileInputStream(new File("src/main/java/L07_InetAddress_TCPSockets/PreAssignment_InvioFile/demo.txt"));
+					FileInputStream file = new FileInputStream(new File("src/main/java/L07_InetAddress_TCPSockets/PreAssignment_InvioFile/demo_1.txt"));
 					OutputStream out = connection.getOutputStream();
 					//Write File
 					while ((count = file.read(buffer)) > 0)
