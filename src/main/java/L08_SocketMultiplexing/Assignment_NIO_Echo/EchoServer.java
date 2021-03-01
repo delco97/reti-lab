@@ -58,7 +58,7 @@ class EchoServer {
             s_channel.configureBlocking(false);
             Selector sel = Selector.open();
             s_channel.register(sel, SelectionKey.OP_ACCEPT);
-            System.out.printf("Server: in attessa di connessioni sulla porta %d\n", this.port);
+            System.out.printf("PingServer: in attessa di connessioni sulla porta %d\n", this.port);
             while(true){
                 if (sel.select() == 0)
                     continue;
@@ -77,8 +77,8 @@ class EchoServer {
                         ServerSocketChannel server = (ServerSocketChannel) key.channel();
                         SocketChannel c_channel = server.accept();
                         c_channel.configureBlocking(false);
-                        System.out.println("Server: accettata nuova connessione dal client: " + c_channel.getRemoteAddress());
-                        System.out.printf("Server: numero di connessioni aperte: %d\n",++this.numberActiveConnections);
+                        System.out.println("PingServer: accettata nuova connessione dal client: " + c_channel.getRemoteAddress());
+                        System.out.printf("PingServer: numero di connessioni aperte: %d\n",++this.numberActiveConnections);
                         this.registerRead(sel, c_channel);
                     }
 
@@ -140,9 +140,9 @@ class EchoServer {
             if (bfs[1].position() == l) {
                 bfs[1].flip();
                 String msg = new String(bfs[1].array()).trim();
-                System.out.printf("Server: ricevuto %s\n", msg);
+                System.out.printf("PingServer: ricevuto %s\n", msg);
                 if (msg.equals(this.EXIT_CMD)){
-                    System.out.println("Server: chiusa la connessione con il client " + c_channel.getRemoteAddress());
+                    System.out.println("PingServer: chiusa la connessione con il client " + c_channel.getRemoteAddress());
                     c_channel.close();
                     key.cancel();
                 }
@@ -168,7 +168,7 @@ class EchoServer {
         String echoAnsw= (String) key.attachment();
         ByteBuffer bbEchoAnsw = ByteBuffer.wrap(echoAnsw.getBytes());
         c_channel.write(bbEchoAnsw);
-        System.out.println("Server: " + echoAnsw + " inviato al client " + c_channel.getRemoteAddress());
+        System.out.println("PingServer: " + echoAnsw + " inviato al client " + c_channel.getRemoteAddress());
         if (!bbEchoAnsw.hasRemaining()) {
             bbEchoAnsw.clear();
             this.registerRead(sel, c_channel);

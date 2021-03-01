@@ -1,4 +1,4 @@
-package soluzioniProf.soluzioniProfLab08_EchoServer;
+package soluzioniProf.soluzioniLab08_EchoServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class EchoClient {
         {
             BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.println("Client: connesso");
+            System.out.println("PingClient: connesso");
             System.out.println("Digita 'exit' per uscire, i messaggi scritti saranno inviati al server:");
 
             while (!this.exit) {
@@ -81,11 +81,11 @@ public class EchoClient {
                 ByteBuffer reply = ByteBuffer.allocate(BUFFER_DIMENSION);
                 client.read(reply);
                 reply.flip();
-                System.out.printf("Client: il server ha inviato %s\n", new String(reply.array()).trim());
+                System.out.printf("PingClient: il server ha inviato %s\n", new String(reply.array()).trim());
                 reply.clear();
 
             }
-            System.out.println("Client: chiusura");
+            System.out.println("PingClient: chiusura");
         }
         catch (IOException e) {
             e.printStackTrace();

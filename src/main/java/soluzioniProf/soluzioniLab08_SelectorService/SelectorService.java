@@ -1,4 +1,4 @@
-package soluzioniProf.soluzioniProfLab08_SelectorService;
+package soluzioniProf.soluzioniLab08_SelectorService;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,7 +19,7 @@ public class SelectorService {
 	public static void main(String[] args) throws IOException {
 		int port = DEFAULT_PORT;
 		if (args.length > 0) port = Integer.parseInt(args[0]);
-		System.out.println("Server starting ... listening on port " + port);
+		System.out.println("PingServer starting ... listening on port " + port);
 		InetAddress ip = InetAddress.getByName("localhost");
 		InetSocketAddress isa = new InetSocketAddress(ip, port);
 		ServerSocketChannel ssc = ServerSocketChannel.open();

@@ -1,6 +1,4 @@
-package soluzioniProf.soluzioniProfLab08_EchoServer;
-
-import soluzioniProf.soluzioniProfLab08_EchoServer.EchoServer;
+package soluzioniProf.soluzioniLab08_EchoServer;
 
 /**
  * Scrivere un programma echo server usando la libreria java NIO e, in particolare, il Selector e canali in modalità non bloccante, e un programma echo client, usando NIO (va bene anche con modalità bloccante).

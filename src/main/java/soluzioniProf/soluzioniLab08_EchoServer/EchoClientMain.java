@@ -1,4 +1,4 @@
-package soluzioniProf.soluzioniProfLab08_EchoServer;
+package soluzioniProf.soluzioniLab08_EchoServer;
 
 /**
  * @author Andrea Michienzi
