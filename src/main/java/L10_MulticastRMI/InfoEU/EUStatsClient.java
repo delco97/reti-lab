@@ -16,10 +16,10 @@ public class EUStatsClient {
 			return;
 			
 		} /* Set up a security manager as before */
-		System.setSecurityManager(new RMISecurityManager());
+		//System.setSecurityManager(new RMISecurityManager());
 		try {
 			
-			Registry r = LocateRegistry.getRegistry(args[0]);
+			Registry r = LocateRegistry.getRegistry(Integer.parseInt(args[0]));
 			
 			RemoteObject = r.lookup("EUSTATS-SERVER");
 			serverObject = (EUStatsService) RemoteObject;

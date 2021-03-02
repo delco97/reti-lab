@@ -56,7 +56,7 @@ public class EUStatsServiceImpl extends RemoteServer implements EUStatsService {
 			// Creazione di un registry sulla porta args[0]
 			LocateRegistry.createRegistry(Integer.parseInt(args[0]));
 			
-			Registry r = LocateRegistry.getRegistry(args[0]);
+			Registry r = LocateRegistry.getRegistry(Integer.parseInt(args[0]));
 			
 			/* Pubblicazione dello stub (un suo riferimento) nel registry appena creato*/
 			//r.rebind("//localhost:"+ args[0] +"/EUSTATS-SERVER", stub);

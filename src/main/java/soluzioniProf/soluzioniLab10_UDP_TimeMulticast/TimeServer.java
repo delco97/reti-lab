@@ -1,16 +1,20 @@
-package soluzioniProf.soluzioniLab10_preAssign_Welcome;
+package soluzioniProf.soluzioniLab10_UDP_TimeMulticast;
 
 import java.io.IOException;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
- * La classe WelcomeServer modella il server del sevizio WelcomeMulticast
+ * La classe TimeServer modella il server del sevizio TimeMulticast
+ * La classe TimeServer modella il server del sevizio TimeMulticast
  *
  * @author Samuel Fabrizi
  * @version 1.0
  */
-public class WelcomeServer {
+public class TimeServer {
     /**
      * indirizzo del gruppo di multicast
      */
@@ -20,44 +24,46 @@ public class WelcomeServer {
      */
     private final int port;
     /**
-     * messaggio di welcome
+     * intervallo di tempo simulato tra un invio ed il successivo (ms)
      */
-    private final String MSG = "WELCOME";
+    private final long interval;
 
     /**
      *
      * @param addr indirizzo del gruppo di multicast
      * @param port porta a cui associare il socket di multicast
+     * @param interval intervallo di tempo tra un invio ed il successivo (ms)
      * @throws UnknownHostException se l'indirizzo non è valido
      * @throws IllegalArgumentException se l'indirizzo non è un indirizzo di multicast
      */
-    public WelcomeServer(String addr, int port) throws UnknownHostException, IllegalArgumentException {
+    public TimeServer(String addr, int port, long interval) throws UnknownHostException, IllegalArgumentException {
         this.multicastGroup = InetAddress.getByName(addr);
         if (!this.multicastGroup.isMulticastAddress())
             throw new IllegalArgumentException();
         this.port = port;
+        this.interval = interval;
     }
 
     /**
      * avvia il server
      */
     public void start() {
-        Random rand = new Random();
         try (DatagramSocket sock = new DatagramSocket()) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             while (true) {
+                String timestamp = dtf.format(LocalDateTime.now());
                 DatagramPacket dat = new DatagramPacket(
-                        MSG.getBytes(),
-                        MSG.length(),
+                        timestamp.getBytes(),
+                        timestamp.length(),
                         this.multicastGroup,
                         this.port
                 );
                 sock.send(dat);
                 System.out.printf(
-                        "Il server ha inviato %s\n",
+                        "%s\n",
                         new String(dat.getData(), dat.getOffset(), dat.getLength())
                 );
-                // attende un numero di millisecondi casuale compreso tra 200 e 2000
-                Thread.sleep(rand.nextInt(1800) + 200);
+                Thread.sleep(this.interval);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package soluzioniProf.soluzioniLab10_Welcome;
+package soluzioniProf.soluzioniLab10_preAssign_Welcome;
 
 import java.net.UnknownHostException;
 

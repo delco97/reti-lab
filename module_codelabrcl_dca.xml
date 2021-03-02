@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_codelabrcl_dca" default="compile.module.codelabrcl_dca">
+  <dirname property="module.codelabrcl_dca.basedir" file="${ant.file.module_codelabrcl_dca}"/>
+  
+  <property name="module.jdk.home.codelabrcl_dca" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.codelabrcl_dca" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.codelabrcl_dca" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.codelabrcl_dca" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="codelabrcl_dca.output.dir" value="${module.codelabrcl_dca.basedir}/target/classes"/>
+  <property name="codelabrcl_dca.testoutput.dir" value="${module.codelabrcl_dca.basedir}/target/test-classes"/>
+  
+  <path id="codelabrcl_dca.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="codelabrcl_dca.module.production.classpath">
+    <path refid="${module.jdk.classpath.codelabrcl_dca}"/>
+    <path refid="library.maven:_commons-cli:commons-cli:1.4.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.9.6.classpath"/>
+  </path>
+  
+  <path id="codelabrcl_dca.runtime.production.module.classpath">
+    <pathelement location="${codelabrcl_dca.output.dir}"/>
+    <path refid="library.maven:_commons-cli:commons-cli:1.4.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.9.6.classpath"/>
+  </path>
+  
+  <path id="codelabrcl_dca.module.classpath">
+    <path refid="${module.jdk.classpath.codelabrcl_dca}"/>
+    <pathelement location="${codelabrcl_dca.output.dir}"/>
+    <path refid="library.maven:_commons-cli:commons-cli:1.4.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.9.6.classpath"/>
+  </path>
+  
+  <path id="codelabrcl_dca.runtime.module.classpath">
+    <pathelement location="${codelabrcl_dca.testoutput.dir}"/>
+    <pathelement location="${codelabrcl_dca.output.dir}"/>
+    <path refid="library.maven:_commons-cli:commons-cli:1.4.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.9.6.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.9.6.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.codelabrcl_dca">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.codelabrcl_dca">
+    <patternset refid="excluded.from.module.codelabrcl_dca"/>
+  </patternset>
+  
+  <path id="codelabrcl_dca.module.sourcepath">
+    <dirset dir="${module.codelabrcl_dca.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="codelabrcl_dca.module.test.sourcepath">
+    <dirset dir="${module.codelabrcl_dca.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.codelabrcl_dca" depends="compile.module.codelabrcl_dca.production,compile.module.codelabrcl_dca.tests" description="Compile module CodeLabRCL_DCA"/>
+  
+  <target name="compile.module.codelabrcl_dca.production" depends="register.custom.compilers" description="Compile module CodeLabRCL_DCA; production classes">
+    <mkdir dir="${codelabrcl_dca.output.dir}"/>
+    <javac2 destdir="${codelabrcl_dca.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.codelabrcl_dca}/javac">
+      <compilerarg line="${compiler.args.codelabrcl_dca}"/>
+      <bootclasspath refid="codelabrcl_dca.module.bootclasspath"/>
+      <classpath refid="codelabrcl_dca.module.production.classpath"/>
+      <src refid="codelabrcl_dca.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.codelabrcl_dca"/>
+    </javac2>
+    
+    <copy todir="${codelabrcl_dca.output.dir}">
+      <fileset dir="${module.codelabrcl_dca.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.codelabrcl_dca.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.codelabrcl_dca.tests" depends="register.custom.compilers,compile.module.codelabrcl_dca.production" description="compile module CodeLabRCL_DCA; test classes" unless="skip.tests">
+    <mkdir dir="${codelabrcl_dca.testoutput.dir}"/>
+    <javac2 destdir="${codelabrcl_dca.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.codelabrcl_dca}/javac">
+      <compilerarg line="${compiler.args.codelabrcl_dca}"/>
+      <bootclasspath refid="codelabrcl_dca.module.bootclasspath"/>
+      <classpath refid="codelabrcl_dca.module.classpath"/>
+      <src refid="codelabrcl_dca.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.codelabrcl_dca"/>
+    </javac2>
+    
+    <copy todir="${codelabrcl_dca.testoutput.dir}">
+      <fileset dir="${module.codelabrcl_dca.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.codelabrcl_dca" description="cleanup module">
+    <delete dir="${codelabrcl_dca.output.dir}"/>
+    <delete dir="${codelabrcl_dca.testoutput.dir}"/>
+  </target>
+</project>

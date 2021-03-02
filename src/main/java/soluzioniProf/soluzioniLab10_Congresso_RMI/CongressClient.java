@@ -1,14 +1,8 @@
-package soluzioniProf.soluzioniLab10_Congresso;
+package soluzioniProf.soluzioniLab10_Congresso_RMI;
 
-import L10_MulticastRMI.InfoEU.EUStatsService;
-import soluzioniProf.soluzioniLab10_preAssign_Welcome.WelcomeClient;
-
-import java.net.UnknownHostException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
